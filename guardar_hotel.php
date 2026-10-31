@@ -8,20 +8,15 @@ if (!isset($_SESSION["usuario"])) {
     exit;
 }
 
-//Validar que sino es rol de admin no puede guardar hoteles
-
 if($_SESSION["rol"] !== "Administrador"){
     die("No tiene permisos para registrar hoteles");
 }
-
-//verifica si el formulario se ha enviado por POST
 
 if($_SERVER["REQUEST_METHOD"] !== "POST"){
     header("Location: hoteles.php");
     exit;
 }
 
-//recibir los datos del formulario punto trigger
 $nombre = trim($_POST["nombre"] ?? "");
 $ciudad = trim($_POST["ciudad"] ??"");
 $direccion = trim($_POST["direccion"] ??"");
@@ -55,9 +50,6 @@ if(
     );
 }
 
-
-//ejecutar el procedimiento almacenado de guardar y ejecutar trigger
-
 try{
     $sql="EXEC dbo.agregarHotel
           @Nombre = ?,
@@ -81,8 +73,6 @@ try{
 }catch(PDOException $e){
 
     error_log($e->getMessage());
-
-    //mostrar error de sql $_SERVER
 
     echo '<!DOCTYPE html>
     <html lang="en">

@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Mensaje de aviso: usa SweetAlert si está disponible, si no alert()
     function avisar(texto, campo) {
         if (window.Swal) {
             Swal.fire({
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ---------- Validaciones del formulario de hotel (registrar y editar) ----------
+    // Validaciones del formulario de hotel (registrar y editar) 
     document.querySelectorAll("#formHotel").forEach(function (formulario) {
         formulario.addEventListener("submit", function (evento) {
             const nombre = formulario.querySelector("#nombre");
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ---------- Confirmación antes de eliminar (SweetAlert) ----------
+    // Confirmación antes de eliminar (SweetAlert)
     document.querySelectorAll(".form-eliminar").forEach(function (formulario) {
         formulario.addEventListener("submit", function (evento) {
             evento.preventDefault();
@@ -110,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 reverseButtons: true,
                 focusCancel: true,
                 didOpen: function (popup) {
-                    // textContent evita inyectar HTML desde el nombre del hotel
+                    
                     popup.querySelector("strong").textContent = nombre;
                 }
             }).then(function (resultado) {
@@ -121,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ---------- Resultado de la operación (agregado / actualizado / eliminado / error) ----------
+    // Resultado de la operación (agregado / actualizado / eliminado / error)
     const parametros = new URLSearchParams(window.location.search);
     const mensajes = {
         agregado:    { icon: "success", title: "¡Hotel registrado!",    text: "El hotel se guardó correctamente." },
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultadoOp = mensajes[parametros.get("mensaje")];
 
     if (resultadoOp && window.Swal) {
-        // SweetAlert reemplaza al aviso en pantalla para no mostrarlo dos veces
+        
         document.querySelectorAll(".alerta").forEach(function (a) { a.style.display = "none"; });
         Swal.fire({
             icon: resultadoOp.icon,
@@ -143,13 +142,13 @@ document.addEventListener("DOMContentLoaded", function () {
             timer: resultadoOp.icon === "success" ? 3000 : undefined,
             timerProgressBar: true
         });
-        // Quitar ?mensaje= de la URL para que al recargar no se repita
+        
         if (window.history.replaceState) {
             window.history.replaceState({}, "", window.location.pathname);
         }
     }
 
-    // ---------- Las alertas de éxito se ocultan solas ----------
+    // Las alertas de éxito se ocultan solas 
     document.querySelectorAll(".alerta.exito").forEach(function (alerta) {
         setTimeout(function () {
             alerta.classList.add("oculta");

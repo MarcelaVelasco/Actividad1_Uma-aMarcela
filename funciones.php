@@ -1,10 +1,4 @@
 <?php
-/**
- * Funciones compartidas del proyecto Hotel SensuYork.
- * Centraliza control de acceso, validaciones y pantalla de errores.
- */
-
-/** Exige que exista una sesión iniciada. */
 function requerirSesion(): void
 {
     if (!isset($_SESSION["usuario"])) {
@@ -13,7 +7,6 @@ function requerirSesion(): void
     }
 }
 
-/** Exige rol Administrador; el Auditor solo puede consultar. */
 function requerirAdministrador(): void
 {
     requerirSesion();
@@ -22,11 +15,6 @@ function requerirAdministrador(): void
         exit;
     }
 }
-
-/**
- * Valida los datos del formulario de hotel (registro y edición).
- * Devuelve [datos, errores].
- */
 function validarDatosHotel(array $post): array
 {
     $errores = [];
@@ -75,8 +63,6 @@ function validarDatosHotel(array $post): array
 
     return [$datos, $errores];
 }
-
-/** Extrae el mensaje legible que devolvió SQL Server (RAISERROR, etc.). */
 function mensajeSql(PDOException $e): string
 {
     $mensaje = $e->getMessage();
@@ -85,8 +71,6 @@ function mensajeSql(PDOException $e): string
     }
     return $mensaje;
 }
-
-/** Muestra una página de error con el estilo del sistema y termina. */
 function mostrarError(
     string $titulo,
     string $mensaje,

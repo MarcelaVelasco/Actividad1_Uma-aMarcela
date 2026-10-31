@@ -3,7 +3,6 @@ session_start();
 require_once "conexion.php";
 require_once "funciones.php";
 
-// Solo el administrador puede modificar hoteles
 requerirAdministrador();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {

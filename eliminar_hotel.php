@@ -3,10 +3,8 @@ session_start();
 require_once "conexion.php";
 require_once "funciones.php";
 
-// Solo el administrador puede eliminar hoteles
 requerirAdministrador();
 
-// La eliminación solo se acepta por POST (nunca por URL)
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: hoteles.php");
     exit;

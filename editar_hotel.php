@@ -12,7 +12,6 @@ if ($id === false) {
     exit;
 }
 
-// Se usa el procedimiento almacenado existente y se localiza el hotel seleccionado
 $hotel = null;
 try {
     $consulta = $conexion->query("EXEC consultarHotel");
